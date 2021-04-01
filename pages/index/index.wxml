@@ -1,0 +1,40 @@
+<!--index.wxml-->
+<!-- <button bindtap="example">example</button> -->
+<view style="margin:10px 5px" wx-if="{{!hasUserInfo}}">
+  <button class="weui-btn button" bindtap="toVerify" type="warn">您未完善个人信息，点击前往认证</button>
+</view>
+<form bindsubmit="formSubmit" wx:else="{{hasUserInfo}}">
+  <view class="page__bd">
+    <view class="weui-cells__title">订餐{{errMsg?'('+errMsg+')':""}}</view>
+    <view class="weui-cells weui-cells_after-title">
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">预约时间</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindDateChange" value="{{appointment_at}}" name="appointment_at" mode="date" start="{{startDay}}" end="{{endDay}}">
+            <view wx:if="{{appointment_at}}" class="weui-select weui-select_in-select-after">{{appointment_at}}</view>
+            <view wx:else class="weui-select weui-select_in-select-after">请选择</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">用餐类型</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindMealChange" value="{{meal_type_index}}" name="meal_type_index" range="{{meal_types}}" range-key="label">
+            <view wx:if="{{meal_type_index !== null}}" class="weui-select weui-select_in-select-after">{{meal_types[meal_type_index].label}}</view>
+            <view wx:else class="weui-select weui-select_in-select-after">请选择</view>
+          </picker>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn button" type="primary" formType="submit">预约</button>
+  </view>
+</form>

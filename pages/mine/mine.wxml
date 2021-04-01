@@ -1,0 +1,49 @@
+<!--pages/mine/mine.wxml-->
+<view class="container">
+
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="weui-btn button" type="primary">个人信息授权</button>
+    <block wx:else>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+
+</view>
+<form bindsubmit="formSubmit" wx:if="{{hasUserInfo}}">
+  <view class="page__bd">
+
+    <view class="weui-cells__title">个人信息</view>
+    <view class="weui-cells weui-cells_after-title">
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="name" value="{{name}}" bindinput="nameInput" placeholder="请输入"/>
+        </view>
+      </view>
+
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">公司</view>
+        </view>
+        <view class="weui-cell__bd">
+          <!-- <picker bindchange="bindBusinessIdChange" value="{{business_id_index}}" range-key="label" range="{{business_type}}">
+            <view class="weui-select weui-select_in-select-after">{{business_type[business_id_index].label}}</view>
+          </picker> -->
+          <picker bindchange="bindPickerChange" value="{{department}}" name="department" range-key="department_name" :range-value="department_id" range="{{departments}}">
+            <view wx:if="{{department === null}}" class="weui-select weui-select_in-select-after">请选择</view>
+            <view wx:else class="weui-select weui-select_in-select-after">{{departments[department].department_name}}</view>
+          </picker>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn button" type="primary" formType="submit">保存</button>
+  </view>
+</form>
