@@ -1,0 +1,21 @@
+<!--pages/list/list.wxml-->
+<view style="margin:10px 5px" wx-if="{{!hasUserInfo}}">
+  <button class="weui-btn button" bindtap="toVerify" type="warn">您未完善个人信息，点击前往认证</button>
+</view>
+<view class="container" wx:else style="padding:10px 0;">
+  <view style="font-size:20px;margin:10px auto">订餐记录</view>
+  <view class="table">
+    <view class="tr">
+      <view class="th" style="width:500px;">日期</view>
+      <view class="th">早餐</view>
+      <view class="th">午餐</view>
+      <view class="th">晚餐</view>
+    </view>
+    <view class="tr" wx:for="{{orders}}" wx:key="index">
+      <view class="td" style="width:500px;">{{item.appointment_at}}</view>
+      <view class="td {{booking[item.appointment_at][0] || !booking[item.appointment_at]?'disable':''}}" bindtap="cancel1" data-item="{{item}}">{{item.meals[0]? '已预约': ''}}</view>
+      <view class="td {{booking[item.appointment_at][1] || !booking[item.appointment_at]?'disable':''}}" bindtap="cancel2" data-item="{{item}}">{{item.meals[1]? '已预约': ''}}</view>
+      <view class="td {{booking[item.appointment_at][2] || !booking[item.appointment_at]?'disable':''}}" bindtap="cancel3" data-item="{{item}}">{{item.meals[2]? '已预约': ''}}</view>
+    </view>
+  </view>
+</view>
